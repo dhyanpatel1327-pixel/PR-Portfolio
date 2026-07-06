@@ -32,27 +32,9 @@
     cursor: none;
   }
 
-  /* Custom Cursor */
-  .cursor {
-    width: 12px; height: 12px;
-    background: var(--pink);
-    border-radius: 50%;
-    position: fixed; top: 0; left: 0;
-    pointer-events: none; z-index: 9999;
-    transition: transform 0.1s ease;
-    mix-blend-mode: difference;
-  }
-  .cursor-trail {
-    width: 32px; height: 32px;
-    border: 1px solid var(--pink);
-    border-radius: 50%;
-    position: fixed; top: 0; left: 0;
-    pointer-events: none; z-index: 9998;
-    transition: all 0.15s ease;
-    opacity: 0.5;
-  }
-
-  /* Futuristic grid overlay for skills section */
+  /* Default system cursor everywhere */
+  * { cursor: auto; }
+  a, button, .project-card, .about-card, .tech-chip, .hamburger { cursor: pointer; }
   #skills {
     position: relative;
   }
@@ -1200,6 +1182,14 @@
 
     .hero-inner { gap: 36px; }
 
+    .hero-title { font-size: clamp(36px, 10vw, 52px); }
+
+    /* Mac mockup mobile fix - naam overlap na ho */
+    .mac-mockup-wrapper { margin-top: 20px; }
+    .mac-screen-name { font-size: clamp(18px, 6vw, 28px) !important; }
+    .mac-screen-content { padding: 24px 12px 12px !important; gap: 8px !important; }
+    .screen-terminal { min-width: unset !important; width: 100%; }
+
     .ftag { display: none; }
     .ftag:nth-child(1),
     .ftag:nth-child(2) { display: block; font-size: 9px; padding: 3px 8px; }
@@ -1215,6 +1205,9 @@
     .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
     .footer-subscribe { flex-direction: column; }
     .mac-screen-content { padding: 16px; }
+
+    /* Notch fix mobile */
+    .mac-notch { width: 80px; height: 18px; }
   }
 
   @media (max-width: 480px) {
@@ -1228,10 +1221,6 @@
 </style>
 </head>
 <body>
-
-<!-- Custom Cursor -->
-<div class="cursor" id="cursor"></div>
-<div class="cursor-trail" id="cursorTrail"></div>
 
 <!-- Back to Top -->
 <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
@@ -1307,7 +1296,7 @@
           <div class="mac-screen-content">
             <div class="screen-particles"></div>
             <div class="screen-matrix" id="matrixText"></div>
-
+            <div style="height:20px"></div>
             <div class="screen-name">
               <span class="name-pink">Dhyan</span> Patel
             </div>
@@ -1664,7 +1653,7 @@
           💼 <a href="https://linkedin.com/in/dhyan-patel-2a5a91360" target="_blank" style="color:var(--pink);text-decoration:none">linkedin.com/in/dhyan-patel-2a5a91360</a>
         </div>
         <div style="font-family:'Space Mono',monospace;font-size:12px;color:var(--gray)">
-          📍 Gujarat, India
+          📍 Ahmedabad, Gujarat, India
         </div>
       </div>
     </div>
@@ -1781,26 +1770,6 @@
 </footer>
 
 <script>
-// ============ CURSOR ============
-const cursor = document.getElementById('cursor');
-const cursorTrail = document.getElementById('cursorTrail');
-let mouseX = 0, mouseY = 0;
-
-document.addEventListener('mousemove', e => {
-  mouseX = e.clientX; mouseY = e.clientY;
-  cursor.style.left = mouseX - 6 + 'px';
-  cursor.style.top = mouseY - 6 + 'px';
-  setTimeout(() => {
-    cursorTrail.style.left = mouseX - 16 + 'px';
-    cursorTrail.style.top = mouseY - 16 + 'px';
-  }, 80);
-});
-
-document.querySelectorAll('a, button, .project-card, .about-card').forEach(el => {
-  el.addEventListener('mouseenter', () => cursor.style.transform = 'scale(2.5)');
-  el.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
-});
-
 // ============ HERO CANVAS PARTICLES ============
 const canvas = document.getElementById('hero-canvas');
 const ctx = canvas.getContext('2d');
